@@ -1,17 +1,17 @@
 <template>
-  <li class="profile-card-2 animeCard card">
+  <li class="profile-card-2 col-sm-5 animeCard card" v-for="ane in anime" :key="ane.name">
     <router-link
-      :to="{ name: 'animeDetails', params: { animeid: anime.anime_id } }"
+      :to="{ name: 'animeDetails', params: { animeid: ane.anime_id } }"
     >
       <div class="img">
-        <img :src="`${anime.img_url}`" class="img img-responsive" />
+        <img :src="`${ane.img_url}`" class="img img-responsive" />
       </div>
-        <div class="profile-name my-1">{{ anime.name }}</div>
+      <div class="profile-name my-1">{{ ane.name }}</div>
     </router-link>
-
+    <!-- 
     <div class="img_shadow">
       <img :src="`${anime.img_url}`" class="img img-responsive" />
-    </div>
+    </div> -->
   </li>
 </template>
 
@@ -19,7 +19,7 @@
 export default {
   name: "animeCard",
   props: {
-    anime: Object,
+    anime: Array,
   },
 };
 </script>
@@ -89,11 +89,9 @@ export default {
   filter: brightness(80%);
   object-fit: cover;
   z-index: 14;
-
   max-height: 320px;
   height: auto;
   width: 100%;
-  
   border-radius: 5px;
   display: block;
   transition: all linear 0.25s;
@@ -124,5 +122,12 @@ export default {
   filter: brightness(40%);
   background: #121212;
 }
-
+@media screen and (max-width: 768px) {
+  .animeCard{
+    max-width: 180px;
+  }
+  .img img {
+    max-height: 250px;
+  }
+}
 </style>

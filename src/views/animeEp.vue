@@ -1,41 +1,45 @@
 <template>
   <div class="container-md my-5">
-    <div class="title m-4">
-      <h4 class="display-5 font-weight-bold text-capitalize">
-        {{ epList.name }}
-      </h4>
-      <small>{{ epName }}</small>
-    </div>
+    <div v-if="metaMedia">
+      <div class="title m-4">
+        <h4 class="display-5 font-weight-bold text-capitalize">
+          {{ epList.name }}
+        </h4>
+        <small>Episode {{ epName.split("-").reverse()[0] }}</small>
+      </div>
 
-    <div class="epPlayer mx-auto my-5">
-      <video controls playsinline>
-        <source
-          v-for="ep in metaMedia"
-          :key="ep"
-          :src="`${ep.ep_link}`"
-          :label="`${ep.quality}`"
-          type="video/mp4"
-        />
-      </video>
-    </div>
-    <div class="episodes_link m-4">
-      <h5 class="text-left">Episodes</h5>
-      <ul class="episode_list">
-        <li v-for="(item, index) in epList.episode_id" :key="index">
-          <router-link
-            :to="{
-              name: 'animeEp',
-              params: {
-                animeName: animeName,
-                animeEpisode: item,
-              },
-            }"
-            class="epItem"
-          >
-            Episode {{ index + 1 }}
-          </router-link>
-        </li>
-      </ul>
+      <div class="epPlayer mx-auto my-5">
+        <video controls playsinline>
+          <source
+            v-for="ep in metaMedia"
+            :key="ep"
+            :src="`${ep.ep_link}`"
+            :label="`${ep.quality}`"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div class="episodes_link m-4">
+        <h5 class="text-left">Episodes</h5>
+        <ul class="episode_list">
+          <li v-for="(item, index) in epList.episode_id" :key="index">
+            <router-link
+              ref="link"
+              v-on:click="pageReload()"
+              :to="{
+                name: 'animeEp',
+                params: {
+                  animeName: animeName,
+                  animeEpisode: item,
+                },
+              }"
+              class="epItem"
+            >
+              Episode {{ index + 1 }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +59,9 @@ export default {
       episodeMedia(epName);
       episodeList(animeName);
     });
+    function pageReload() {
+      location.reload();
+    }
 
     async function episodeList(animeName) {
       let url = "https://animeo-api.herokuapp.com/getAnime/";
@@ -77,6 +84,7 @@ export default {
       metaMedia,
       animeName,
       epName,
+      pageReload,
       epList,
       episodeList,
     };

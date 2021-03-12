@@ -99,7 +99,7 @@ img {
 }
 .epItem {
   padding: 10px 22px;
-  width: 130px;
+  width: 135px;
   background: rgba(255, 255, 255, 0.15);
   margin: 5px;
   display: inline-block;

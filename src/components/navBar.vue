@@ -4,7 +4,7 @@
     <!-- Container wrapper -->
     <div class="container-fluid main">
       <!-- Navbar brand -->
-      <a class="navbar-brand" href="/">Animeo</a>
+      <a class="py-2" href="/">Animeo</a>
 
       <input
         type="search"
@@ -51,8 +51,11 @@ export default {
 .main {
   position: relative !important;
 }
+.main a{
+  font-size: 1.25rem;
+  color: #fff;
+}
 .animeSearch {
-  
   background-color: rgba(139, 139, 139, 0.124) !important;
   backdrop-filter: blur(18px);
   border: none;
@@ -80,6 +83,13 @@ export default {
     position: static;
     transform: none;
     left: 0;
+  }
+  .navbar{
+    padding: 12px 22px !important;
+  }
+  .main{
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
