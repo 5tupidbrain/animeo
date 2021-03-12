@@ -2,7 +2,7 @@
   <div class="container-md my-5">
     <div class="title m-4">
       <h4 class="display-5 font-weight-bold text-capitalize">
-        {{ animeName }}
+        {{ epList.name }}
       </h4>
       <small>{{ epName }}</small>
     </div>
@@ -19,24 +19,24 @@
       </video>
     </div>
     <div class="episodes_link m-4">
-        <h5 class="text-left">Episodes</h5>
-        <div class="episode_list">
+      <h5 class="text-left">Episodes</h5>
+      <ul class="episode_list">
+        <li v-for="(item, index) in epList.episode_id" :key="index">
           <router-link
             :to="{
               name: 'animeEp',
               params: {
-                animeName: anime_id,
+                animeName: animeName,
                 animeEpisode: item,
               },
             }"
-            v-for="(item, index) in epList.episode_id"
-            :key="index"
             class="epItem"
           >
             Episode {{ index + 1 }}
           </router-link>
-        </div>
-      </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -57,8 +57,8 @@ export default {
     });
 
     async function episodeList(animeName) {
-      let url = 'https://animeo-api.herokuapp.com/getAnime/'
-      await fetch(url+animeName)
+      let url = "https://animeo-api.herokuapp.com/getAnime/";
+      await fetch(url + animeName)
         .then((response) => response.json())
         .then((data) => {
           epList.value = data;
@@ -103,10 +103,10 @@ small {
   object-fit: cover;
   width: 100%;
 }
-.watch_more h4{
+.watch_more h4 {
   text-align: left;
 }
-.profile-card-2 img{
+.profile-card-2 img {
   height: 320px !important;
 }
 
@@ -118,15 +118,22 @@ small {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  text-align: left;
+  text-align: center;
 }
-.episodes_link div a {
+.episode_list {
+  justify-content: center;
+  display: flex !important;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0 0 !important;
+}
+.episodes_link ul li a {
   text-decoration: none;
   color: white;
 }
 .epItem {
   padding: 10px 22px;
-  width: 130px;
+  width: 135px;
   background: rgba(255, 255, 255, 0.15);
   margin: 5px;
   display: inline-block;
