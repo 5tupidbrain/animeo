@@ -39,7 +39,7 @@ import { onMounted, ref } from "vue";
 export default {
   setup() {
     let animeDet = ref("");
-    let url = "http://localhost:3000/getAnime/";
+    let url = "https://animeo-api.herokuapp.com/getAnime/";
     let anime_id = window.location.href.split("/")[4];
     onMounted(() => {
       animeDetails(anime_id);

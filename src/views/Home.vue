@@ -40,7 +40,7 @@ export default {
     async function apiDataRetrive() {
       let req = "/Popular/1";
 
-      let url = "http://localhost:3000" + req;
+      let url = "https://animeo-api.herokuapp.com" + req;
 
       await fetch(url)
         .then((response) => response.json())

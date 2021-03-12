@@ -28,7 +28,7 @@ export default {
     });
 
     async function apiDataRetrive(animeName) {
-      let url = "http://localhost:3000/search/" + animeName;
+      let url = "https://animeo-api.herokuapp.com/search/" + animeName;
 
       await fetch(url)
         .then((response) => response.json())

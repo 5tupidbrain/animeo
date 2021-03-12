@@ -49,7 +49,7 @@ export default {
     let epName = window.location.href.split("/")[4];
     let metaMedia = ref("");
     let epList = ref("");
-    let url = "http://localhost:3000/getEpisode/";
+    let url = "https://animeo-api.herokuapp.com/getEpisode/";
 
     onMounted(() => {
       episodeMedia(epName);
@@ -57,7 +57,7 @@ export default {
     });
 
     async function episodeList(animeName) {
-      let url = 'http://localhost:3000/getAnime/'
+      let url = 'https://animeo-api.herokuapp.com/getAnime/'
       await fetch(url+animeName)
         .then((response) => response.json())
         .then((data) => {
