@@ -8,16 +8,135 @@
         <small>Episode {{ epName.split("-").reverse()[0] }}</small>
       </div>
 
-      <div class="epPlayer mx-auto my-5">
-        <video controls playsinline>
+      <div class="epPlayer mx-auto my-5 container">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          id="player"
+          @keydown="toggleFullScreen(event)"
+        >
           <source
-            v-for="ep in metaMedia"
-            :key="ep"
-            :src="`${ep.ep_link}`"
-            :label="`${ep.quality}`"
+            id="source"
+            :src="`${metaMedia[0].ep_link}`"
             type="video/mp4"
           />
         </video>
+        <div class="btndropdown py-2">
+          <div class="dropdown p-2">
+            <button
+              class="btn btn-sm btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              speed {{ videoPlaybackRate }}
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="dropdownMenuButton2"
+            >
+              <li>
+                <button
+                  v-on:click="playbackRate(0.75)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  0.75x
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="playbackRate(1)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  1x
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="playbackRate(1.25)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  1.25x
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="playbackRate(1.5)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  1.50x
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="playbackRate(2)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  2x
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown p-2">
+            <button
+              class="btn btn-sm btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton2"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ videoQuality }}
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="dropdownMenuButton2"
+            >
+              <li>
+                <button
+                  v-on:click="changeSource('MD')"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  360p
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="changeSource('SD')"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  480p
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="changeSource('HD')"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  720p
+                </button>
+              </li>
+              <li>
+                <button
+                  v-on:click="changeSource('FHD')"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  1080p
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="episodes_link m-4">
         <h5 class="text-left">Episodes</h5>
@@ -54,14 +173,13 @@ export default {
     let metaMedia = ref("");
     let epList = ref("");
     let url = "https://animeo-api.herokuapp.com/getEpisode/";
+    let videoPlaybackRate = ref("1x");
+    let videoQuality = ref("720p");
 
     onMounted(() => {
       episodeMedia(epName);
       episodeList(animeName);
     });
-    function pageReload() {
-      location.reload();
-    }
 
     async function episodeList(animeName) {
       let url = "https://animeo-api.herokuapp.com/getAnime/";
@@ -79,6 +197,46 @@ export default {
           metaMedia.value = data;
         });
     }
+    function pageReload() {
+      location.reload();
+    }
+
+    function toggleFullScreen() {
+      let video = document.getElementById("player");
+
+      video.addEventListener("keydown", (e) => {
+        if (e.key == "f" || e.key == "F") {
+          if (document.fullscreen) {
+            document.exitFullscreen();
+          } else {
+            video.requestFullscreen();
+          }
+        }
+      });
+    }
+
+    function playbackRate(rate) {
+      let video = document.getElementById("player");
+
+      console.log(video.currentSrc);
+      video.playbackRate = rate;
+      videoPlaybackRate.value = video.playbackRate + "x";
+    }
+
+    function changeSource(mode) {
+      let video = document.getElementById("player");
+
+      if (mode == "MD") {
+        video.src = metaMedia.value[1].ep_link;
+      } else if (mode == "SD") {
+        video.src = metaMedia.value[2].ep_link;
+      } else if (mode == "HD") {
+        video.src = metaMedia.value[3].ep_link;
+      } else if (mode == "FHD") {
+        video.src = metaMedia.value[4].ep_link;
+      }
+    }
+
     return {
       episodeMedia,
       metaMedia,
@@ -87,11 +245,23 @@ export default {
       pageReload,
       epList,
       episodeList,
+      toggleFullScreen,
+      playbackRate,
+      videoPlaybackRate,
+      videoQuality,
+      changeSource,
     };
   },
 };
 </script>
 <style scoped>
+.dropdown {
+  width: max-content;
+  display: inline-block;
+}
+.dropdown-menu {
+  min-width: 5rem;
+}
 small {
   font-weight: normal;
   font-size: 1.2em;
@@ -105,6 +275,9 @@ small {
 }
 .epPlayer {
   max-width: 1024px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .epPlayer video {
   border-radius: 4px;
