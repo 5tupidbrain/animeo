@@ -1,6 +1,8 @@
 <template>
   <!-- Navbar -->
-  <nav class="navbar py-4 container-lg navbar-expand-lg navbar-dark bg-transparent">
+  <nav
+    class="navbar py-4 container-lg navbar-expand-lg navbar-dark bg-transparent"
+  >
     <!-- Container wrapper -->
     <div class="container-fluid main">
       <!-- Navbar brand -->
@@ -13,6 +15,12 @@
         placeholder="Search Animes here"
         aria-label="Search"
       />
+
+      <div class="social">
+        <a href="https://www.instagram.com/5tupidbrain/"
+          ><img class="m-2" src="../assets/insta.svg" alt=""
+        /></a>
+      </div>
     </div>
   </nav>
   <!-- Navbar -->
@@ -43,7 +51,6 @@ export default {
 </script>
 
 <style scoped>
-
 .animeSearchForm {
   position: absolute;
   bottom: 0;
@@ -51,7 +58,7 @@ export default {
 .main {
   position: relative !important;
 }
-.main a{
+.main a {
   font-size: 1.25rem;
   color: #fff;
 }
@@ -75,8 +82,12 @@ export default {
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #d1d1e4;
-  opacity: 0.6  ;
+  opacity: 0.6;
   font-weight: 300;
+}
+.social img{
+  height: 28px;
+  filter: invert(1) brightness(50%);
 }
 @media screen and (max-width: 768px) {
   .animeSearch {
@@ -84,10 +95,10 @@ export default {
     transform: none;
     left: 0;
   }
-  .navbar{
+  .navbar {
     padding: 12px 22px !important;
   }
-  .main{
+  .main {
     display: flex;
     flex-direction: column;
   }

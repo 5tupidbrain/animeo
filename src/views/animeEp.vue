@@ -196,6 +196,7 @@ export default {
         .then((data) => {
           metaMedia.value = data;
         });
+        
     }
     function pageReload() {
       location.reload();
@@ -228,12 +229,16 @@ export default {
 
       if (mode == "MD") {
         video.src = metaMedia.value[1].ep_link;
+        videoQuality.value='360p';
       } else if (mode == "SD") {
         video.src = metaMedia.value[2].ep_link;
+        videoQuality.value='480p';
       } else if (mode == "HD") {
         video.src = metaMedia.value[3].ep_link;
+        videoQuality.value='720p';
       } else if (mode == "FHD") {
         video.src = metaMedia.value[4].ep_link;
+        videoQuality.value='1080p';
       }
     }
 

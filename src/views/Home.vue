@@ -4,9 +4,9 @@
     <div class="landing">
       <div class="landing_txtBox">
         <h2 class="display-1">Animeo</h2>
-        <h4>Free Anime Website!</h4>
+        <p>(Currently in Beta)</p>
       </div>
-      <img src="../assets/bg.svg" alt="">
+      <img src="../assets/bg.svg" alt="" />
     </div>
     <div class="list container-lg px-sm-4 my-4">
       <h4 class="col-12 mx-4 display-6">Popular</h4>
@@ -34,12 +34,16 @@
 <script>
 import animeCard from "../components/animeCard.vue";
 // import homeSlider from "../components/homeSlider.vue";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 
 export default {
   setup() {
     let animeData = ref([]);
     let animeNo = 1;
+
+    onBeforeMount(() =>{
+      document.title = 'Home - Animeo'
+    })
 
     onMounted(() => {
       apiDataRetrive(animeNo);
@@ -82,7 +86,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.landing img{
+.landing img {
   position: absolute;
   left: 0;
   z-index: -11;

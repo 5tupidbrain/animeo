@@ -2,7 +2,7 @@
   <footer class="footer py-5 my-3">
     <div class="container text-left">
         <h5>Animeo &copy; 2021 </h5>
-        <small class="text-muted">Currently work in Progress (Alpha Testing)</small>
+        <small class="text-muted">Currently work in Progress (Beta Testing)</small>
     </div>
   </footer>
 </template>

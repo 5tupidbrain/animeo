@@ -6,7 +6,9 @@
           <img class="image" :src="`${animeDet.img_url}`" alt="" />
         </div>
         <div class="details my-auto mx-md-5">
-          <h2 class="display-4 font-weight-bold">{{ animeDet.name }}</h2>
+          <h2 id="name" class="display-4 font-weight-bold">
+            {{ animeDet.name }}
+          </h2>
           <p class=""><b>Summary: &nbsp; </b> {{ animeDet.about }}</p>
         </div>
       </div>
@@ -43,6 +45,7 @@ export default {
     let anime_id = window.location.href.split("/")[4];
     onMounted(() => {
       animeDetails(anime_id);
+      console.log(animeDet);
     });
 
     async function animeDetails(id) {
@@ -51,6 +54,9 @@ export default {
         .then((data) => {
           animeDet.value = data;
         });
+
+      let anime_name = document.getElementById("name").innerText;
+      document.title = anime_name + " - Animeo";
     }
     return {
       animeDetails,
@@ -87,10 +93,10 @@ img {
   text-align: center;
 }
 .episode_list {
-  justify-content: center ;
+  justify-content: center;
   display: flex !important;
-  flex-wrap: wrap ;
-  list-style: none ;
+  flex-wrap: wrap;
+  list-style: none;
   padding: 0 0 !important;
 }
 .episodes_link ul li a {
