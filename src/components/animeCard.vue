@@ -130,4 +130,12 @@ export default {
     max-height: 250px;
   }
 }
+@media screen and (max-width: 540px) {
+  .animeCard{
+    max-width: 140px;
+  }
+  .img img {
+    max-height: 200px;
+  }
+}
 </style>
