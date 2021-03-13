@@ -11,7 +11,7 @@
     <div class="list container-lg px-sm-4 my-4">
       <h4 class="col-12 mx-4 display-6">Popular</h4>
 
-      <div class="animeList">
+      <div class="animeList" v-if="animeData">
         <ul class="items">
           <animeCard
             v-for="(data, index) in animeData"
@@ -23,6 +23,9 @@
         <button class="btn btn-primary" v-on:click="showMore()">
           Show more
         </button>
+      </div>
+      <div v-else>
+        <p>Loading...</p>
       </div>
     </div>
   </div>
