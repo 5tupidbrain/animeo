@@ -75,6 +75,15 @@
               </li>
               <li>
                 <button
+                  v-on:click="playbackRate(1.75)"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  1.75x
+                </button>
+              </li>
+              <li>
+                <button
                   v-on:click="playbackRate(2)"
                   class="dropdown-item"
                   type="button"
