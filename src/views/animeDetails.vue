@@ -36,16 +36,16 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 
 export default {
   setup() {
     let animeDet = ref("");
     let url = "https://animeo-api.herokuapp.com/getAnime/";
     let anime_id = window.location.href.split("/")[4];
-    onMounted(() => {
+
+    onBeforeMount(() => {
       animeDetails(anime_id);
-      console.log(animeDet);
     });
 
     async function animeDetails(id) {

@@ -41,13 +41,11 @@ export default {
     let animeData = ref([]);
     let animeNo = 1;
 
-    onBeforeMount(() =>{
-      document.title = 'Home - Animeo'
-    })
-
-    onMounted(() => {
+    onBeforeMount(() => {
       apiDataRetrive(animeNo);
+      document.title = "Home - Animeo";
     });
+
     function showMore() {
       animeNo += 1;
       apiDataRetrive(animeNo);

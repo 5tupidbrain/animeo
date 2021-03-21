@@ -2,7 +2,6 @@
   <!-- <homeSlider/> -->
   <div class="Home container-lg">
     <h4 class="display-6">Search Results</h4>
-
     <div class="animeCardDiv my-4 d-flex flex-wrap justify-content-center">
       <animeCard v-for="(data, index) in animeData" :key="index" :anime="data">
       </animeCard>
@@ -12,7 +11,6 @@
 
 <script>
 import animeCard from "../components/animeCard.vue";
-// import homeSlider from "../components/homeSlider.vue";
 
 import { onMounted, ref } from "vue";
 
@@ -21,10 +19,8 @@ export default {
     let animeName = window.location.href.split("/")[4];
     let animeData = ref([]);
 
-    onMounted(() => {
+    onBeforeMount(() => {
       apiDataRetrive(animeName);
-      console.log(animeName);
-      console.log(animeData);
     });
 
     async function apiDataRetrive(animeName) {
