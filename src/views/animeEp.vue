@@ -2,7 +2,7 @@
   <div class="container-md my-5">
     <div v-if="metaMedia">
       <div class="title m-4">
-        <h4 class="display-5 font-weight-bold text-capitalize">
+        <h4 id="animeName" class="display-5 font-weight-bold text-capitalize">
           {{ epList.name }}
         </h4>
         <small>Episode {{ epName.split("-").reverse()[0] }}</small>
@@ -181,11 +181,18 @@ export default {
     let epName = window.location.href.split("/")[4];
     let metaMedia = ref("");
     let epList = ref("");
-    let url = "https://animeo-api.herokuapp.com/getEpisode/";
+    let url = "https://animeo-api.vercel.app/api/v1";
     let videoPlaybackRate = ref("1x");
     let videoQuality = ref("720p");
 
     onMounted(() => {
+      document.title =
+        "Ep " +
+        epName.split("-").reverse()[0] +
+        " - " +
+        animeName[0].toUpperCase()+animeName.slice(1).replace(/-/g, " ") +
+        " | Animeo";
+
       episodeMedia(epName);
       episodeList(animeName);
     });
@@ -197,6 +204,7 @@ export default {
         .then((data) => {
           epList.value = data;
         });
+
     }
 
     async function episodeMedia(epName) {
@@ -205,7 +213,6 @@ export default {
         .then((data) => {
           metaMedia.value = data;
         });
-        
     }
     function pageReload() {
       location.reload();
@@ -238,16 +245,16 @@ export default {
 
       if (mode == "MD") {
         video.src = metaMedia.value[1].ep_link;
-        videoQuality.value='360p';
+        videoQuality.value = "360p";
       } else if (mode == "SD") {
         video.src = metaMedia.value[2].ep_link;
-        videoQuality.value='480p';
+        videoQuality.value = "480p";
       } else if (mode == "HD") {
         video.src = metaMedia.value[3].ep_link;
-        videoQuality.value='720p';
+        videoQuality.value = "720p";
       } else if (mode == "FHD") {
         video.src = metaMedia.value[4].ep_link;
-        videoQuality.value='1080p';
+        videoQuality.value = "1080p";
       }
     }
 

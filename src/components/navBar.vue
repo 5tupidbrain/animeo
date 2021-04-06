@@ -13,6 +13,7 @@
         id="animeSearch"
         class=" animeSearch mx-auto"
         placeholder="Search Animes here"
+        :value="SearchVal"
         aria-label="Search"
       />
 
@@ -29,6 +30,7 @@
 import { onMounted } from "vue";
 export default {
   setup() {
+    let SearchVal = sessionStorage.getItem("searchValue");
     onMounted(() => {
       document
         .getElementById("animeSearch")
@@ -40,10 +42,12 @@ export default {
     });
     function Search() {
       let input = document.getElementById("animeSearch").value;
+      sessionStorage.setItem("searchValue", input);
       window.location.href = "/search/" + input;
     }
     return {
       Search,
+      SearchVal,
     };
   },
   name: "navBar",
@@ -85,7 +89,7 @@ export default {
   opacity: 0.6;
   font-weight: 300;
 }
-.social img{
+.social img {
   height: 28px;
   filter: invert(1) brightness(50%);
 }

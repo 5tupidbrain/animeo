@@ -19,7 +19,7 @@ export default {
     let animeName = window.location.href.split("/")[4];
     let animeData = ref([]);
 
-    onBeforeMount(() => {
+    onMounted(() => {
       apiDataRetrive(animeName);
     });
 
@@ -31,6 +31,8 @@ export default {
         .then((data) => {
           animeData.value.push(data);
         });
+
+      document.title = "Search - " + animeName;
     }
     return {
       apiDataRetrive,
@@ -43,4 +45,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h4{
+font-weight: bold !important;
+padding: 16px;
+}
+</style>

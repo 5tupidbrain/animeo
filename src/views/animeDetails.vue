@@ -3,19 +3,19 @@
     <div v-if="animeDet" class="d-flex flex-column">
       <div class=" animeInfo my-4 d-flex">
         <div>
-          <img class="image" :src="`${animeDet.img_url}`" alt="" />
+          <img class="image" :src="`${animeDet.img}`" alt="" />
         </div>
         <div class="details my-auto mx-md-5">
           <h2 id="name" class="display-4 font-weight-bold">
-            {{ animeDet.name }}
+            {{ animeDet.title }}
           </h2>
-          <p class=""><b>Summary: &nbsp; </b> {{ animeDet.about }}</p>
+          <p class=""><b>Summary: &nbsp; </b> {{ animeDet.synopsis }}</p>
         </div>
       </div>
       <div class="episodes_link my-4">
         <h5 class="text-left">Episodes</h5>
         <ul class="episode_list">
-          <li v-for="(item, index) in animeDet.episode_id" :key="index">
+          <li v-for="(item, index) in animeDet.episodes" :key="index">
             <router-link
               :to="{
                 name: 'animeEp',
@@ -36,23 +36,24 @@
 </template>
 
 <script>
-import { onBeforeMount, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 
 export default {
   setup() {
     let animeDet = ref("");
-    let url = "https://animeo-api.herokuapp.com/getAnime/";
+    let url = "https://animeo-api.vercel.app/api/v1/search/";
     let anime_id = window.location.href.split("/")[4];
 
-    onBeforeMount(() => {
+    onMounted(() => {
       animeDetails(anime_id);
+      console.log(animeDet)
     });
 
     async function animeDetails(id) {
       await fetch(url + id)
         .then((response) => response.json())
         .then((data) => {
-          animeDet.value = data;
+          animeDet.value = data.search[0];
         });
 
       let anime_name = document.getElementById("name").innerText;
