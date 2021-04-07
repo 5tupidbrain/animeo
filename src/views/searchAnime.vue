@@ -20,16 +20,25 @@ export default {
     let animeData = ref([]);
 
     onMounted(() => {
+      Loading();
       apiDataRetrive(animeName);
     });
-
+    function Loading() {
+      document.getElementById("baseData").style.display = "none";
+      document.getElementById("loader").style.display = "flex";
+    }
+    function isLoaded() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("baseData").style.display = "block";
+    }
     async function apiDataRetrive(animeName) {
-      let url = "https://animeo-api.herokuapp.com/search/" + animeName;
+      let url = "https://animeo-api.vercel.app/api/v1/Search/" + animeName;
 
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          animeData.value.push(data);
+          animeData.value.push(data.search);
+          isLoaded();
         });
 
       document.title = "Search - " + animeName;
@@ -46,8 +55,8 @@ export default {
 </script>
 
 <style scoped>
-h4{
-font-weight: bold !important;
-padding: 16px;
+h4 {
+  font-weight: bold !important;
+  padding: 16px;
 }
 </style>

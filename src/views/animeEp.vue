@@ -1,9 +1,9 @@
 <template>
-  <div class="container-md my-5">
+  <div class="container m-5 mx-auto">
     <div v-if="metaMedia">
       <div class="title m-4">
         <h4 id="animeName" class="display-5 font-weight-bold text-capitalize">
-          {{ epList.name }}
+          {{ epList.title }}
         </h4>
         <small>Episode {{ epName.split("-").reverse()[0] }}</small>
       </div>
@@ -23,134 +23,154 @@
           />
         </video>
         <div class="btndropdown py-2">
-          <div class="dropdown p-2">
+          <div class="nextEp py-2">
             <button
-              class="btn btn-sm btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              id="prevBtn"
+              class=" btn btn-sm btn-outline-primary text-light "
+              v-on:click="changeEp('P')"
             >
-              speed {{ videoPlaybackRate }}
+              Prev Ep
             </button>
-            <ul
-              class="dropdown-menu dropdown-menu-dark"
-              aria-labelledby="dropdownMenuButton2"
-            >
-              <li>
-                <button
-                  v-on:click="playbackRate(0.75)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  0.75x
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="playbackRate(1)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  1x
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="playbackRate(1.25)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  1.25x
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="playbackRate(1.5)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  1.50x
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="playbackRate(1.75)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  1.75x
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="playbackRate(2)"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  2x
-                </button>
-              </li>
-            </ul>
           </div>
-          <div class="dropdown p-2">
+          <div class="btnControls">
+            <div class="dropdown p-2">
+              <button
+                class="btn btn-sm btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                speed {{ videoPlaybackRate }}
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-dark"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>
+                  <button
+                    v-on:click="playbackRate(0.75)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    0.75x
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="playbackRate(1)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    1x
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="playbackRate(1.25)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    1.25x
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="playbackRate(1.5)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    1.50x
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="playbackRate(1.75)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    1.75x
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="playbackRate(2)"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    2x
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="dropdown p-2">
+              <button
+                class="btn btn-sm btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ videoQuality }}
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-dark"
+                aria-labelledby="dropdownMenuButton2"
+              >
+                <li>
+                  <button
+                    v-on:click="changeSource('MD')"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    360p
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="changeSource('SD')"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    480p
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="changeSource('HD')"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    720p
+                  </button>
+                </li>
+                <li>
+                  <button
+                    v-on:click="changeSource('FHD')"
+                    class="dropdown-item"
+                    type="button"
+                  >
+                    1080p
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="nextEp py-2">
             <button
-              class="btn btn-sm btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              id="nextBtn"
+              class=" btn btn-sm btn-outline-primary text-light "
+              v-on:click="changeEp('N')"
             >
-              {{ videoQuality }}
+              Next Ep
             </button>
-            <ul
-              class="dropdown-menu dropdown-menu-dark"
-              aria-labelledby="dropdownMenuButton2"
-            >
-              <li>
-                <button
-                  v-on:click="changeSource('MD')"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  360p
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="changeSource('SD')"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  480p
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="changeSource('HD')"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  720p
-                </button>
-              </li>
-              <li>
-                <button
-                  v-on:click="changeSource('FHD')"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  1080p
-                </button>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
-      <div class="episodes_link m-4">
+      <div class="episodes_link m-4 mx-auto">
         <h5 class="text-left">Episodes</h5>
         <ul class="episode_list">
-          <li v-for="(item, index) in epList.episode_id" :key="index">
+          <li v-for="(item, index) in epList.episodes" :key="index">
             <router-link
               ref="link"
               v-on:click="pageReload()"
@@ -158,12 +178,12 @@
                 name: 'animeEp',
                 params: {
                   animeName: animeName,
-                  animeEpisode: item,
+                  animeEpisode: item.id,
                 },
               }"
               class="epItem"
             >
-              Episode {{ index + 1 }}
+              Ep {{ index + 1 }}
             </router-link>
           </li>
         </ul>
@@ -181,37 +201,84 @@ export default {
     let epName = window.location.href.split("/")[4];
     let metaMedia = ref("");
     let epList = ref("");
-    let url = "https://animeo-api.vercel.app/api/v1";
+    let url = "https://animeo-api.vercel.app/api/v1/AnimeEpisodeHandler/";
     let videoPlaybackRate = ref("1x");
     let videoQuality = ref("720p");
 
     onMounted(() => {
+      Loading();
+      episodeMedia(epName);
+      episodeList(animeName);
+    });
+    function Loading() {
+      document.getElementById("baseData").style.display = "none";
+      document.getElementById("loader").style.display = "flex";
+    }
+    function isLoaded() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("baseData").style.display = "block";
+    }
+    function changeTitle() {
       document.title =
         "Ep " +
         epName.split("-").reverse()[0] +
         " - " +
-        animeName[0].toUpperCase()+animeName.slice(1).replace(/-/g, " ") +
+        epList.value.title +
         " | Animeo";
-
-      episodeMedia(epName);
-      episodeList(animeName);
-    });
-
+    }
+    function changeEp(type) {
+      if (type === "P") {
+        let pageNo = parseInt(
+          window.location.pathname
+            .split("/")[2]
+            .split("-")
+            .reverse()[0]
+        );
+        if (pageNo > 1) {
+          let loc =
+            "/" +
+            window.location.pathname.split("/")[1] +
+            "/" +
+            window.location.pathname.split("/")[2].replace(pageNo, pageNo - 1);
+          window.location.assign(loc);
+        } else {
+          document.getElementById("prevBtn").disabled = true;
+        }
+      } else {
+        let pageNo = parseInt(
+          window.location.pathname
+            .split("/")[2]
+            .split("-")
+            .reverse()[0]
+        );
+        if (pageNo < epList.value.totalEpisodes) {
+          let loc =
+            "/" +
+            window.location.pathname.split("/")[1] +
+            "/" +
+            window.location.pathname.split("/")[2].replace(pageNo, pageNo + 1);
+          window.location.assign(loc);
+        } else {
+          document.getElementById("nextBtn").disabled = true;
+        }
+      }
+    }
     async function episodeList(animeName) {
-      let url = "https://animeo-api.herokuapp.com/getAnime/";
+      let url = "https://animeo-api.vercel.app/api/v1/Search/";
       await fetch(url + animeName)
         .then((response) => response.json())
         .then((data) => {
-          epList.value = data;
+          epList.value = data.search[0];
+          changeTitle();
+          isLoaded();
         });
-
     }
 
     async function episodeMedia(epName) {
       await fetch(url + epName)
         .then((response) => response.json())
         .then((data) => {
-          metaMedia.value = data;
+          metaMedia.value = data.anime;
         });
     }
     function pageReload() {
@@ -271,6 +338,7 @@ export default {
       videoPlaybackRate,
       videoQuality,
       changeSource,
+      changeEp,
     };
   },
 };
@@ -295,7 +363,7 @@ small {
   margin: 0;
 }
 .epPlayer {
-  max-width: 1024px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,6 +372,11 @@ small {
   border-radius: 4px;
   object-fit: cover;
   width: 100%;
+}
+.btndropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .watch_more h4 {
   text-align: left;
@@ -320,14 +393,20 @@ small {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  max-width: 800px;
   text-align: center;
 }
 .episode_list {
-  justify-content: center;
   display: flex !important;
+  height: 180px;
+  overflow-y: scroll;
+  justify-content: center;
   flex-wrap: wrap;
   list-style: none;
   padding: 0 0 !important;
+}
+.episode_list li {
+  display: inline-block;
 }
 .episodes_link ul li a {
   text-decoration: none;
@@ -335,9 +414,10 @@ small {
 }
 .epItem {
   padding: 10px 22px;
-  width: 135px;
+  width: 115px;
   background: rgba(255, 255, 255, 0.15);
   margin: 5px;
   display: inline-block;
+  border-radius: 2px;
 }
 </style>

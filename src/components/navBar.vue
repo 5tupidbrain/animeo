@@ -6,7 +6,7 @@
     <!-- Container wrapper -->
     <div class="container-fluid main">
       <!-- Navbar brand -->
-      <a class="py-2" href="/">Animeo</a>
+      <a class="py-2 title" href="/">Animeo</a>
 
       <input
         type="search"
@@ -42,7 +42,7 @@ export default {
     });
     function Search() {
       let input = document.getElementById("animeSearch").value;
-      sessionStorage.setItem("searchValue", input);
+      window.sessionStorage.setItem("searchValue", input);
       window.location.href = "/search/" + input;
     }
     return {
@@ -61,6 +61,11 @@ export default {
 }
 .main {
   position: relative !important;
+}
+.title{
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+
 }
 .main a {
   font-size: 1.25rem;
@@ -94,6 +99,11 @@ export default {
   filter: invert(1) brightness(50%);
 }
 @media screen and (max-width: 768px) {
+  .animeSearch {
+    max-width: 380px;
+  }
+}
+@media screen and (max-width: 568px) {
   .animeSearch {
     position: static;
     transform: none;

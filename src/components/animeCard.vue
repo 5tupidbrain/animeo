@@ -102,11 +102,6 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .animeCard {
-    width: 180px;
-  }
-}
-@media screen and (max-width: 540px) {
-  .animeCard {
     width: 140px;
     min-width: 140px;
   }

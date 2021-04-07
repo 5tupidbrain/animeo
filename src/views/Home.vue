@@ -1,14 +1,9 @@
 <template>
   <!-- <homeSlider/> -->
   <div class="Home">
-    <div class="loader" id="loader">
-      <div class="div">
-        <img src="../assets/Ghost.gif" alt="" srcset="" />
-        <h4>Loading,<br>Please wait!</h4>
-      </div>
-    </div>
     <div class="landing" id="landing">
       <div class="landing_txtBox">
+        <img src="../assets/logo.png" alt="">
         <h2 class="display-1">Animeo</h2>
         <p>(Currently in Beta)</p>
       </div>
@@ -62,9 +57,10 @@ export default {
     let animeNo = 1;
 
     onMounted(() => {
+      document.title = "Home - Animeo";
+      Loading();
       apiOngoingSeries();
       apiDataRetrive(animeNo);
-      document.title = "Home - Animeo";
     });
 
     function showMore() {
@@ -72,9 +68,13 @@ export default {
       console.log(animeNo);
       apiDataRetrive(animeNo);
     }
+    function Loading() {
+      document.getElementById("baseData").style.display = "none";
+      document.getElementById("loader").style.display = "flex";
+    }
     function isLoaded() {
       document.getElementById("loader").style.display = "none";
-      document.getElementById("landing").style.display = "block";
+      document.getElementById("baseData").style.display = "block";
     }
 
     async function apiDataRetrive(pgNo) {
@@ -96,7 +96,7 @@ export default {
       await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          isLoaded()
+          isLoaded();
           OngoingSeries.value.push(data.anime);
         });
     }
@@ -142,26 +142,6 @@ export default {
 ::-webkit-scrollbar {
   display: none;
 }
-.loader {
-  position: fixed;
-  z-index: 999;
-  background: #001120;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.loader img {
-  height: 80px;
-}
-.loader h4{
-  margin-top: 12px;
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center !important;;
-}
 .scrollBtn {
   position: absolute;
   outline: 0;
@@ -183,7 +163,6 @@ export default {
   left: -10px;
 }
 .landing {
-  display: none;
   text-align: center;
   height: 50vh;
   position: relative;
@@ -247,6 +226,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.landing_txtBox img{
+  filter: brightness(50%) blur(4px);
+
 }
 .Home h4 {
   text-align: left;
