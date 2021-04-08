@@ -1,10 +1,10 @@
 <template>
   <!-- Navbar -->
   <nav
-    class="navbar py-4 container-lg navbar-expand-lg navbar-dark bg-transparent"
+    class="navbar py-4 container-lg navbar-expand-lg navbar-dark "
   >
     <!-- Container wrapper -->
-    <div class="container-fluid main">
+    <div class="container-fluid main px-sm-5">
       <!-- Navbar brand -->
       <a class="py-2 title" href="/">Animeo</a>
 
@@ -55,6 +55,11 @@ export default {
 </script>
 
 <style scoped>
+.navbar{
+  background: var(--secondary);
+  margin: 0 !important;
+  max-width: 100%;
+}
 .animeSearchForm {
   position: absolute;
   bottom: 0;

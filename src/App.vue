@@ -28,13 +28,19 @@ export default {
 </script>
 
 <style>
+:root {
+  --background: #001120;
+  --primary: #f6546a;
+  --secondary: #021929;
+  --greybg: #4e4e50;
+}
 body {
-  background-color: #001120 !important;
+  background-color: var(--background) !important;
 }
 .baseContainer {
   position: relative;
 }
-#baseData{
+#baseData {
   display: none;
 }
 ::-webkit-scrollbar {
@@ -76,7 +82,7 @@ body {
   font-weight: normal;
   text-align: center !important;
 }
-.MWL{
+.MWL {
   position: absolute;
   bottom: 10px;
   left: 0;
@@ -84,7 +90,7 @@ body {
   font-size: 12px;
   filter: brightness(60%);
 }
-.MWL span{
+.MWL span {
   color: red;
 }
 #app {

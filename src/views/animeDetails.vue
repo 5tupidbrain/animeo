@@ -1,19 +1,28 @@
 <template>
-  <div class="container my-5">
-    <div id="AnimeDetails">
+  <div class="container-md my-5 d-flex justify-content-center">
+    <div class="AnimeDetails">
       <div v-if="animeDet" class="d-flex flex-column">
         <div class=" animeInfo my-4 d-flex">
           <div>
-            <img class="image" :src="`${animeDet.img}`" alt="" />
+            <img class="animePoster" :src="`${animeDet.img}`" alt="" />
           </div>
-          <div class="details my-auto mx-md-5">
+          <div class="details my-auto px-md-5">
             <h2 id="name" class="display-4 font-weight-bold">
               {{ animeDet.title }}
             </h2>
-            <p><b>Released: </b>{{ animeDet.released }}</p>
-            <p><b>Status:</b> {{ animeDet.status }}</p>
-            <p><b>Other names: </b>{{ animeDet.otherName }}</p>
-            <p><b>Genres:</b> {{ animeDet.genres }}</p>
+            <h2 class="releasedEp">
+              {{ animeDet.status }}
+
+              <span>· </span>
+              {{ animeDet.released }}
+              <span> · </span>
+              <b v-if="animeDet.totalEpisodes">{{ animeDet.totalEpisodes }}</b>
+              <b v-else>0</b>
+              Episodes
+            </h2>
+            <ul class="genres">
+              <li v-for="genre in animeDet.genres" :key="genre">{{ genre }}</li>
+            </ul>
             <p class="summary">
               <b>Summary: &nbsp; </b> {{ animeDet.synopsis.split(":")[1] }}
             </p>
@@ -21,7 +30,7 @@
         </div>
         <div class="episodes_link my-4">
           <h5 class="text-left">Episodes</h5>
-          <ul class="episode_list">
+          <ul class="episode_list mx-auto">
             <li v-for="(item, index) in animeDet.episodes" :key="index">
               <router-link
                 :to="{
@@ -90,16 +99,23 @@ export default {
 </script>
 
 <style scoped>
+::-webkit-scrollbar {
+  display: none;
+}
 img {
   height: 420px;
   width: auto;
   border-radius: 4px;
 }
-p{
-  margin: 0 ;
+p {
+  margin: 0;
 }
 .row {
   --bs-gutter-x: 0 !important;
+}
+.AnimeDetails{
+  max-width: 1120px;
+  width: 100%;
 }
 .details {
   text-align: left;
@@ -107,27 +123,56 @@ p{
 }
 .summary {
   margin-top: 16px !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* number of lines to show */
-  -webkit-box-orient: vertical;
+}
+.animePoster{
+  box-shadow: 0 0px 30px -10px #f6546aa8;
 }
 .animeInfo {
   flex-direction: row;
+}
+.releasedEp {
+  font-size: 1rem !important;
+  font-weight: bold;
+}
+.genres {
+  color: #000;
+  width: 100%;
+  list-style-type: none;
+  margin: 0;
+  margin-top: 46px;
+  padding: 0;
+  overflow-x: scroll;
+  display: flex;
+}
+.genres li {
+  display: inline-block;
+  background: rgb(222, 224, 247, 0.5);
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-right: 6px;
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 .episodes_link {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  justify-content: center;
   text-align: center;
 }
 .episode_list {
-  justify-content: center;
   display: flex !important;
+  padding: 0 0 !important;
+  justify-content: center;
+  width: 90%;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0 0 !important;
+}
+.episode_list li{
+  /* float: left; */
+  display: inline-block;
 }
 .episodes_link ul li a {
   text-decoration: none;
@@ -135,20 +180,31 @@ p{
 }
 .epItem {
   padding: 10px 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 135px;
+  height: 50px;
+  border-radius: 2px;
   background: rgba(255, 255, 255, 0.15);
   margin: 5px;
-  display: inline-block;
+  /* display: inline-block; */
 }
 @media screen and (max-width: 786px) {
   .animeInfo {
     flex-direction: column;
   }
   .details {
-    text-align: justify !important;
     padding: 0 18px !important;
     margin: 48px 0 0 0 !important;
     width: 100%;
+  }
+  .summary{
+    text-align: justify !important;
+  }
+  .animePoster{
+    width: 100% !important;
+    object-fit: cover;
   }
 }
 </style>

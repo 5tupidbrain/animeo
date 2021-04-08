@@ -3,14 +3,14 @@
   <div class="Home">
     <div class="landing" id="landing">
       <div class="landing_txtBox">
-        <img src="../assets/logo.png" alt="">
+        <img src="../assets/logo.png" alt="" />
         <h2 class="display-1">Animeo</h2>
         <p>(Currently in Beta)</p>
       </div>
       <img src="../assets/bg.svg" alt="" />
     </div>
     <div class="list container-lg px-sm-4 my-4">
-      <div class="animeList">
+      <div class="animeList OngoingSeries">
         <h4 class="col-12">Ongoing Series</h4>
 
         <button v-on:click="test('fwd')" class="scrollBtn fwd">❮</button>
@@ -26,17 +26,17 @@
         <button v-on:click="test('nxt')" class="scrollBtn next">❯</button>
       </div>
 
-      <div class="animeList OngoingSeries">
+      <div class="animeList PopularSeries">
         <h4>Popular</h4>
-        <ul class="items " id="animeScroll">
+        <div class="items " id="onScroll">
           <animeCard
             v-for="(data, index) in animeData"
             :key="index"
             :anime="data"
           >
           </animeCard>
-          <li><span class="spaceBlock"></span></li>
-        </ul>
+          <div><span class="spaceBlock"></span></div>
+        </div>
         <button class="btn btn-primary" v-on:click="showMore()">
           Show more
         </button>
@@ -136,10 +136,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap");
 
-::-webkit-scrollbar {
+.animeList > ::-webkit-scrollbar {
   display: none;
 }
 .scrollBtn {
@@ -149,10 +149,10 @@ export default {
   border-radius: 50%;
   height: 42px;
   width: 42px;
-  z-index: 9;
+  z-index: 999;
   text-align: center;
-  background: #072f52;
-  color: #3f97e4;
+  background: #f6546a;
+  color: #fff;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -192,32 +192,62 @@ export default {
   position: relative;
 }
 .items {
-  padding: 0 !important;
+  padding: 18px 10px !important;
   margin: 0;
   display: flex;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
-}
-.items li {
-  /* float: left; */
-  position: relative;
-  text-align: center;
-  list-style: none;
-  display: inline-block;
-  margin-bottom: 20px;
-  vertical-align: top;
 }
 .spaceBlock {
   width: 150px !important;
   height: 50px;
   margin-left: 1px;
 }
+.OngoingSeries > .items {
+  display: flex !important;
+}
+.OngoingSeries > .items > .animeCard {
+  min-width: 190px !important;
+  max-width: 190px !important;
+  margin: 12px 6px 20px;
+}
+.PopularSeries > .items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+}
 
-.OngoingSeries ul {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  overflow: hidden;
+@media only screen and (min-width: 640px) {
+  .PopularSeries > .items {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .PopularSeries > .items {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 820px) {
+  .PopularSeries > .items {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .PopularSeries > .items {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .PopularSeries > .items {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
 }
 .landing_txtBox {
   width: max-content;
@@ -227,9 +257,8 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.landing_txtBox img{
+.landing_txtBox img {
   filter: brightness(50%) blur(4px);
-
 }
 .Home h4 {
   text-align: left;
@@ -237,9 +266,7 @@ export default {
 
 @media screen and (max-width: 540px) {
   .scrollBtn {
-    height: 32px;
-    width: 32px;
-    font-size: 14px;
+    display: none;
   }
   .OngoingSeries ul li {
     width: 140px !important;
