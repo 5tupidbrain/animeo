@@ -32,7 +32,18 @@ const routes = [
     name: 'animeDetails',
     props: true,
     component: () => import('../views/animeDetails.vue')
-  }
+  },
+  {
+    path: '/movies/',
+    name: 'movies',
+    component: () => import('../views/movies.vue')
+  },
+  {
+    path: '/genres/:genreName',
+    name: 'genrePage',
+    props: true,
+    component: () => import('../views/genrePage.vue')
+  },
 ]
 
 const router = createRouter({

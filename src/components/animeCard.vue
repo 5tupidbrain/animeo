@@ -38,7 +38,7 @@
     </router-link>
   </div>
 </template>
-
+ 
 <script>
 export default {
   name: "animeCard",
@@ -50,7 +50,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap");
 ::-webkit-scrollbar {
   display: none;
 }

@@ -1,11 +1,12 @@
 <template>
   <!-- <homeSlider/> -->
   <div class="Home">
-    <div class="landing" id="landing">
-      <div class="landing_txtBox">
-        <img src="../assets/logo.png" alt="" />
-        <h2 class="display-1">Animeo</h2>
-        <p>(Currently in Beta)</p>
+    <div class="landing">
+      <div class="quote container">
+        <h4>" {{ Quote.quote }} "</h4>
+        <span class="divider my-2"></span>
+        <p>{{ Quote.character }}</p>
+        <small>{{ Quote.anime }}</small>
       </div>
       <img src="../assets/bg.svg" alt="" />
     </div>
@@ -37,9 +38,13 @@
           </animeCard>
           <div><span class="spaceBlock"></span></div>
         </div>
-        <button class="btn btn-primary" v-on:click="showMore()">
-          Show more
-        </button>
+        <div class="loadMore">
+          <span class="loadMoreSpan"></span>
+          <button class=" btn" v-on:click="showMore()">
+            Load more
+          </button>
+          <span class="loadMoreSpan"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -54,11 +59,13 @@ export default {
   setup() {
     let animeData = ref([]);
     let OngoingSeries = ref([]);
+    let Quote = ref("");
     let animeNo = 1;
 
     onMounted(() => {
       document.title = "Home - Animeo";
       Loading();
+      animeQuote();
       apiOngoingSeries();
       apiDataRetrive(animeNo);
     });
@@ -75,6 +82,21 @@ export default {
     function isLoaded() {
       document.getElementById("loader").style.display = "none";
       document.getElementById("baseData").style.display = "block";
+    }
+
+    async function animeQuote() {
+      let url = "https://animechan.vercel.app/api/random";
+
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.quote.split("").length);
+          if (data.quote.split("").length > 220) {
+            animeQuote();
+          } else {
+            Quote.value = data;
+          }
+        });
     }
 
     async function apiDataRetrive(pgNo) {
@@ -128,6 +150,7 @@ export default {
       showMore,
       test,
       isLoaded,
+      Quote,
     };
   },
   components: {
@@ -167,6 +190,7 @@ export default {
   height: 50vh;
   position: relative;
   overflow: hidden;
+  min-height: 320px;
 }
 .landing img {
   position: absolute;
@@ -176,6 +200,36 @@ export default {
   width: 100%;
   filter: brightness(60%) blur(5px);
   object-fit: cover;
+}
+
+.quote {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+  font-family: "Oswald", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.quote h4 {
+  font-size: 1.5rem;
+  text-align: center !important;
+}
+.quote p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.quote small {
+  color: #ffffff98;
+  font-size: 0.9rem;
+}
+.Home h4 {
+  text-align: left;
 }
 .Home {
   height: fit-content;
@@ -187,6 +241,7 @@ export default {
 .animeList {
   width: 100%;
   margin: 54px 0;
+  margin-bottom: 0 !important;
   display: block;
   padding: 0px 8px;
   position: relative;
@@ -216,8 +271,40 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 6px 16px;
 }
+.loadMore {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.loadMore button {
+  min-width: max-content;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #ffffff98;
+}
+.loadMore button:hover {
+  box-shadow: none;
+  color: #ffffffd5;
+  background: none;
+}
+.loadMoreSpan {
+  content: " ";
+  height: 2px;
+  width: 50%;
+  float: left;
+  background: rgba(255, 255, 255, 0.164);
+}
+.divider {
+  content: " ";
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.164);
+}
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 580px) {
   .PopularSeries > .items {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -249,28 +336,28 @@ export default {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
-.landing_txtBox {
-  width: max-content;
-  font-family: "Oswald", sans-serif !important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.landing_txtBox img {
-  filter: brightness(50%) blur(4px);
-}
-.Home h4 {
-  text-align: left;
-}
 
 @media screen and (max-width: 540px) {
   .scrollBtn {
     display: none;
   }
-  .OngoingSeries ul li {
-    width: 140px !important;
-    min-width: fit-content !important;
+
+  .OngoingSeries > .items > .animeCard,
+  .items > .animeCard {
+    min-width: 150px !important;
+  }
+  .animeCard > a > div > img {
+    max-height: 200px;
+  }
+  .quote h4 {
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+  .quote p {
+    font-size: 0.9rem;
+  }
+  .quote small {
+    font-size: 0.8rem;
   }
 }
 </style>

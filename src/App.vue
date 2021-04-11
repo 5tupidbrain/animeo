@@ -45,7 +45,6 @@ body {
 }
 ::-webkit-scrollbar {
   width: 6px;
-  cursor: pointer;
 }
 /* Track */
 ::-webkit-scrollbar-track {
