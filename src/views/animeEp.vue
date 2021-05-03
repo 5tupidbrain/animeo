@@ -279,6 +279,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           metaMedia.value = data.anime;
+          console.log(metaMedia.value);
         });
     }
     function pageReload() {
@@ -309,19 +310,27 @@ export default {
 
     function changeSource(mode) {
       let video = document.getElementById("player");
-
+      let source = document.getElementById("source");
       if (mode == "MD") {
-        video.src = metaMedia.value[1].ep_link;
+        source.setAttribute('src',metaMedia.value[1].ep_link);
         videoQuality.value = "360p";
+        video.load();
+        video.play();
       } else if (mode == "SD") {
-        video.src = metaMedia.value[2].ep_link;
+        source.setAttribute('src',metaMedia.value[2].ep_link);
         videoQuality.value = "480p";
+        video.load();
+        video.play();
       } else if (mode == "HD") {
-        video.src = metaMedia.value[3].ep_link;
+        source.setAttribute('src',metaMedia.value[3].ep_link);
         videoQuality.value = "720p";
+        video.load();
+        video.play();
       } else if (mode == "FHD") {
-        video.src = metaMedia.value[4].ep_link;
+        source.setAttribute('src',metaMedia.value[4].ep_link);
         videoQuality.value = "1080p";
+        video.load();
+        video.play();
       }
     }
 

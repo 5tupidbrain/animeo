@@ -64,7 +64,6 @@ export default {
     onMounted(() => {
       Loading();
       animeDetails(anime_id);
-      console.log(animeDet);
     });
     function Loading() {
       document.getElementById("baseData").style.display = "none";

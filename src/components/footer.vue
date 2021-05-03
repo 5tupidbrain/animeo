@@ -3,7 +3,7 @@
     <div class="container text-left">
       <img src="../assets/logo.png" alt="">
         <h5>Animeo &copy; 2021 </h5>
-        <p class="MWL">Animeo - Made with <span>❤</span> in India.</p>
+        <p class="MWL">Made with <span>❤</span> in India.</p>
     </div>
   </footer>
 </template>

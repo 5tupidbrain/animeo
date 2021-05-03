@@ -1,24 +1,11 @@
-# animeo
+# Animeo 
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+An anime website that allows users to watch their favorite anime shows
 
-### Compiles and minifies for production
-```
-npm run build
-```
+This template is created in :
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    Vue
+    Javascript
+    HTML
+    CSS
