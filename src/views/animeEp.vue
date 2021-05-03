@@ -167,6 +167,13 @@
           </div>
         </div>
       </div>
+
+      <div class="mx-auto toastHeader">
+        <p class="toastHeader-item">
+          If changing video quality not working, complete the captcha <a :href="`${metaMedia[1].ep_link}`" >here!</a> (One time only)
+        </p>
+      </div>
+
       <div class="episodes_link m-4 mx-auto">
         <h5 class="text-left">Episodes</h5>
         <ul class="episode_list">
@@ -312,22 +319,22 @@ export default {
       let video = document.getElementById("player");
       let source = document.getElementById("source");
       if (mode == "MD") {
-        source.setAttribute('src',metaMedia.value[1].ep_link);
+        source.setAttribute("src", metaMedia.value[1].ep_link);
         videoQuality.value = "360p";
         video.load();
         video.play();
       } else if (mode == "SD") {
-        source.setAttribute('src',metaMedia.value[2].ep_link);
+        source.setAttribute("src", metaMedia.value[2].ep_link);
         videoQuality.value = "480p";
         video.load();
         video.play();
       } else if (mode == "HD") {
-        source.setAttribute('src',metaMedia.value[3].ep_link);
+        source.setAttribute("src", metaMedia.value[3].ep_link);
         videoQuality.value = "720p";
         video.load();
         video.play();
       } else if (mode == "FHD") {
-        source.setAttribute('src',metaMedia.value[4].ep_link);
+        source.setAttribute("src", metaMedia.value[4].ep_link);
         videoQuality.value = "1080p";
         video.load();
         video.play();
@@ -372,7 +379,7 @@ small {
   margin: 0;
 }
 .epPlayer {
-  max-width: 800px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -397,6 +404,16 @@ small {
 .details {
   text-align: left;
   width: 100%;
+}
+.toastHeader{
+  max-width: 900px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.toastHeader p{
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
 }
 .episodes_link {
   display: flex;
