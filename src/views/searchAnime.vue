@@ -16,7 +16,8 @@ import { onMounted, ref } from "vue";
 
 export default {
   setup() {
-    let animeName = window.location.href.split("/")[4];
+    let animeName = decodeURI(window.location.href.split("/")[4]);
+
     let animeData = ref([]);
 
     onMounted(() => {

@@ -59,12 +59,14 @@ export default {
   setup() {
     let animeDet = ref("");
     let url = "https://animeo-api.vercel.app/api/v1/search/";
-    let anime_id = window.location.href.split("/")[4];
+    let anime_id = decodeURI(window.location.href.split("/")[4]);
+    anime_id = anime_id.split(" ").join("-").toLowerCase();
 
     onMounted(() => {
       Loading();
       animeDetails(anime_id);
     });
+    
     function Loading() {
       document.getElementById("baseData").style.display = "none";
       document.getElementById("loader").style.display = "flex";
@@ -112,7 +114,7 @@ p {
 .row {
   --bs-gutter-x: 0 !important;
 }
-.AnimeDetails{
+.AnimeDetails {
   max-width: 1120px;
   width: 100%;
 }
@@ -123,7 +125,7 @@ p {
 .summary {
   margin-top: 16px !important;
 }
-.animePoster{
+.animePoster {
   box-shadow: 0 0px 30px -10px #f6546aa8;
 }
 .animeInfo {
@@ -169,7 +171,7 @@ p {
   flex-wrap: wrap;
   list-style: none;
 }
-.episode_list li{
+.episode_list li {
   /* float: left; */
   display: inline-block;
 }
@@ -198,10 +200,10 @@ p {
     margin: 48px 0 0 0 !important;
     width: 100%;
   }
-  .summary{
+  .summary {
     text-align: justify !important;
   }
-  .animePoster{
+  .animePoster {
     width: 100% !important;
     object-fit: cover;
   }

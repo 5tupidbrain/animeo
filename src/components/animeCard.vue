@@ -1,5 +1,5 @@
 <template>
-  <div class=" col-sm-5 animeCard card" v-for="ane in anime" :key="ane.name">
+  <div class="col-sm-5 animeCard card" v-for="ane in anime" :key="ane.name">
     <router-link :to="{ name: 'animeDetails', params: { animeid: ane.title } }">
       <div class="animeInfo">
         <p class="wrapPara">{{ ane.synopsis.split(":")[1] }}</p>
@@ -16,7 +16,10 @@
             <li v-for="genre in ane.genres" :key="genre">{{ genre }}</li>
           </ul>
           <router-link
-            :to="{ name: 'animeDetails', params: { animeid: ane.title } }"
+            :to="{
+              name: 'animeDetails',
+              params: { animeid: decodeURI(ane.title) },
+            }"
             class="btn"
             >Watch now
           </router-link>
@@ -38,12 +41,30 @@
     </router-link>
   </div>
 </template>
- 
+
 <script>
+import { toRefs } from "@vue/reactivity";
 export default {
   name: "animeCard",
   props: {
     anime: Array,
+  },
+  setup(props) {
+    let animeData = toRefs(props).anime;
+
+    let DecodeID = (title) => {
+      title = title
+        .split(" ")
+        .join("-")
+        .toLowerCase();
+      return title;
+    };
+
+
+    return {
+      DecodeID,
+      animeData,
+    };
   },
 };
 </script>
@@ -74,7 +95,7 @@ export default {
   background-attachment: fixed;
 }
 
-.profile-name h2{
+.profile-name h2 {
   margin: 0 !important;
   font-size: 14px;
   font-weight: 500;
@@ -92,7 +113,7 @@ export default {
   padding: 12px 0px;
   padding-bottom: 8px;
 }
-.profile-name > .releasedEp{
+.profile-name > .releasedEp {
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
 }

@@ -138,8 +138,8 @@ export default {
 .navbar {
   background: var(--secondary);
   margin: 0 !important;
+  padding: 6px;
   max-width: 100%;
-  padding-bottom: 0 !important;
 }
 .animeSearchForm {
   position: absolute;
@@ -208,6 +208,7 @@ export default {
   font-weight: 600;
   transition: ease 0.1s;
   border: none;
+  cursor: pointer;
 }
 .dropbtn img {
   height: 12px;
