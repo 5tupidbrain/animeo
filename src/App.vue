@@ -7,10 +7,12 @@
         <p class="MWL">Animeo - Made with <span>❤</span> in India.</p>
       </div>
     </div>
+
     <div id="baseData">
       <navBar />
+      <img class="LandingBG" src="./assets/bg.svg" alt="" />
       <router-view />
-      <bottomFooter></bottomFooter>
+      <bottomFooter />
     </div>
   </div>
 </template>
@@ -34,15 +36,19 @@ export default {
   --secondary: #021929;
   --greybg: #4e4e50;
 }
+* {
+  scrollbar-color: #3788cf #072f52;
+  scrollbar-width: thin !important;
+}
 body {
   background-color: var(--background) !important;
 }
 .baseContainer {
   position: relative;
 }
-#baseData {
+/* #baseData {
   display: none;
-}
+} */
 ::-webkit-scrollbar {
   width: 6px;
 }

@@ -26,17 +26,17 @@ export default {
     let animeData = ref([]);
     let pgNo = 1;
     onMounted(() => {
-      Loading();
+      // Loading();
       apiDataRetrive(pgNo);
     });
-    function Loading() {
-      document.getElementById("baseData").style.display = "none";
-      document.getElementById("loader").style.display = "flex";
-    }
-    function isLoaded() {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("baseData").style.display = "block";
-    }
+    // function Loading() {
+    //   document.getElementById("baseData").style.display = "none";
+    //   document.getElementById("loader").style.display = "flex";
+    // }
+    // function isLoaded() {
+    //   document.getElementById("loader").style.display = "none";
+    //   document.getElementById("baseData").style.display = "block";
+    // }
 
     function showMore() {
       pgNo += 1;
@@ -49,7 +49,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           animeData.value.push(data.movies);
-          isLoaded();
+          // isLoaded();
         });
 
       document.title = "Movies - Animeo" ;

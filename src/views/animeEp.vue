@@ -2,10 +2,9 @@
   <div class="container mainDiv m-5 mx-auto">
     <div v-if="metaMedia">
       <div class="title m-2">
-        <h4 id="animeName" class="display-5 font-weight-bold text-capitalize">
+        <h4 id="animeName" class="font-weight-bold text-capitalize">
           {{ epList.title }}
         </h4>
-        <small>Episode {{ epName.split("-").reverse()[0] }}</small>
       </div>
 
       <div class="videoContainer">
@@ -168,7 +167,13 @@
             </div>
           </div>
         </div>
-        <div class="episodes_link mx-2">
+        <div class="mx-auto toastHeader">
+          <p class="toastHeader-item">
+            If changing video quality not working, complete the captcha
+            <a :href="`${metaMedia[1].ep_link}`">here!</a> (One time only)
+          </p>
+        </div>
+        <div class="episodes_link mx-2 my-2">
           <!-- <h5 class="text-left">Episodes</h5> -->
           <ul id="EpList" class="episode_list">
             <li v-for="(item, index) in epList.episodes" :key="index">
@@ -184,18 +189,11 @@
                 }"
                 class="epItem"
               >
-                Episode {{ index + 1 }}
+                Ep {{ index + 1 }}
               </router-link>
             </li>
           </ul>
         </div>
-      </div>
-
-      <div class="mx-auto toastHeader">
-        <p class="toastHeader-item">
-          If changing video quality not working, complete the captcha
-          <a :href="`${metaMedia[1].ep_link}`">here!</a> (One time only)
-        </p>
       </div>
     </div>
   </div>
@@ -215,20 +213,11 @@ export default {
     let videoQuality = ref("720p");
 
     onMounted(() => {
-      Loading();
+      Loading()
       episodeMedia(epName);
       episodeList(animeName);
     });
 
-    let currentEp = () => {
-      let Eplist = document.getElementById("EpList");
-      let Idx = (window.location.href.split("/").pop()).split('-').pop();
-      Eplist.children.forEach((ele) => {
-        if (ele.children[0].innerText.split(" ").pop() === Idx) {
-          ele.children[0].classList.add("active")
-        }
-      });
-    };
     function Loading() {
       document.getElementById("baseData").style.display = "none";
       document.getElementById("loader").style.display = "flex";
@@ -236,11 +225,22 @@ export default {
     function isLoaded() {
       document.getElementById("loader").style.display = "none";
       document.getElementById("baseData").style.display = "block";
-
-      setTimeout(() => {
-        currentEp();
-      }, 1000);
     }
+    let currentEp = () => {
+      let Eplist = document.getElementById("EpList");
+      let Idx = window.location.href
+        .split("/")
+        .pop()
+        .split("-")
+        .pop();
+      Eplist.children.forEach((ele) => {
+        if (ele.children[0].innerText.split(" ").pop() === Idx) {
+          ele.children[0].classList.add("active");
+          console.log("found");
+        }
+      });
+    };
+
     function changeTitle() {
       document.title =
         "Ep " +
@@ -291,9 +291,12 @@ export default {
       await fetch(url + animeName)
         .then((response) => response.json())
         .then((data) => {
-          epList.value = data.search[0];
+          isLoaded()
+            epList.value = data.search[0];
           changeTitle();
-          isLoaded();
+          setTimeout(() => {
+            currentEp();
+          }, 1000);
         });
     }
 
@@ -376,8 +379,12 @@ export default {
 };
 </script>
 <style scoped>
-.active{
-  background: #1266f1!important;
+*{
+  scrollbar-width: 0;
+}
+
+.active {
+  background: #1266f1 !important;
 }
 .dropdown {
   width: max-content;
@@ -385,11 +392,6 @@ export default {
 }
 .dropdown-menu {
   min-width: 5rem;
-}
-small {
-  font-weight: normal;
-  font-size: 1.2em;
-  text-transform: capitalize;
 }
 .title {
   text-align: left;
@@ -399,13 +401,12 @@ small {
 }
 .videoContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  max-width: 1200px;
 }
 .epPlayer {
-  /* width: 100%; */
-  max-width: 1400px;
-  /* height: 600px; */
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -426,30 +427,35 @@ small {
   flex-direction: column;
   gap: 8px;
   height: 100%;
-  /* max-width: 800px; */
   text-align: center;
 }
 .episode_list {
-  height: 600px;
-  display: flex !important;
-  flex-direction: column;
+  height: 320px;
+  flex-wrap: nowrap;
   overflow-y: scroll;
   list-style: none;
-  /* padding: 0 0 !important; */
   padding: 0 6px;
+}
+.episode_list::-webkit-scrollbar {
+  display: none;
 }
 .episode_list li {
   display: inline-block;
 }
 .epItem {
-  padding: 10px 22px;
-  width: 180px;
-  background: rgba(255, 255, 255, 0.15);
+  width: 98px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  display: inline-block;
+  font-size: 14px;
   margin: 2px;
   display: inline-block;
   border-radius: 4px;
   text-decoration: none;
   color: white;
+}
+.epItem:hover{
+  background: rgba(255, 255, 255, 0.2);
 }
 .watch_more h4 {
   text-align: left;
@@ -463,6 +469,7 @@ small {
   width: 100%;
 }
 .toastHeader {
+  margin-bottom: 12px;
   max-width: 900px;
   padding: 8px 16px;
   border-radius: 4px;
@@ -470,6 +477,7 @@ small {
 }
 .toastHeader p {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
   margin: 0;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-5 animeCard card" v-for="ane in anime" :key="ane.name">
-    <router-link :to="{ name: 'animeDetails', params: { animeid: ane.title } }">
+    <router-link :to="{ name: 'animeDetails', params: { animeid: DecodeID(ane.title) } }">
       <div class="animeInfo">
         <p class="wrapPara">{{ ane.synopsis.split(":")[1] }}</p>
         <div class="frontCard">

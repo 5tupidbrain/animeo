@@ -8,7 +8,6 @@
         <p>{{ Quote.character }}</p>
         <small>{{ Quote.anime }}</small>
       </div>
-      <img src="../assets/bg.svg" alt="" />
     </div>
     <div class="list container-lg px-sm-4 my-4">
       <div class="animeList OngoingSeries">
@@ -149,7 +148,7 @@ export default {
       OngoingSeries,
       showMore,
       test,
-      isLoaded,
+      // isLoaded,
       Quote,
     };
   },
@@ -161,7 +160,10 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap");
-
+.animeList {
+  scrollbar-color: transparent transparent !important;
+  scrollbar-width: none !important;
+}
 .animeList > ::-webkit-scrollbar {
   display: none;
 }
@@ -184,6 +186,16 @@ export default {
 }
 .fwd {
   left: -10px;
+}
+.LandingBG {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  filter: blur(50px);
+  object-fit: cover;
+  z-index: -2;
 }
 .landing {
   text-align: center;
@@ -234,6 +246,7 @@ export default {
 .Home {
   height: fit-content;
   overflow: hidden;
+  background: none;
 }
 .list h4 {
   margin-left: 12px;

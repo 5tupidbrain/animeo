@@ -12,19 +12,42 @@
             </h2>
             <h2 class="releasedEp">
               {{ animeDet.status }}
-
               <span>· </span>
               {{ animeDet.released }}
               <span> · </span>
+              Ep
               <b v-if="animeDet.totalEpisodes">{{ animeDet.totalEpisodes }}</b>
               <b v-else>0</b>
-              Episodes
             </h2>
+            <router-link
+              :to="{
+                name: 'animeEp',
+                params: {
+                  animeName: anime_id,
+                  animeEpisode: animeDet.episodes[0].id,
+                },
+              }"
+              class="watchNow"
+            >
+              Watch now
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="playIcon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </router-link>
             <ul class="genres">
               <li v-for="genre in animeDet.genres" :key="genre">{{ genre }}</li>
             </ul>
             <p class="summary">
-              <b>Summary: &nbsp; </b> {{ animeDet.synopsis.split(":")[1] }}
+              {{ animeDet.synopsis.split(":")[1] }}
             </p>
           </div>
         </div>
@@ -42,7 +65,7 @@
                 }"
                 class="epItem"
               >
-                Episode {{ index + 1 }}
+                Ep {{ index + 1 }}
               </router-link>
             </li>
           </ul>
@@ -60,10 +83,13 @@ export default {
     let animeDet = ref("");
     let url = "https://animeo-api.vercel.app/api/v1/search/";
     let anime_id = decodeURI(window.location.href.split("/")[4]);
-    anime_id = anime_id.split(" ").join("-").toLowerCase();
+    anime_id = anime_id
+      .split(" ")
+      .join("-")
+      .toLowerCase();
 
     onMounted(() => {
-      Loading();
+      Loading()
       animeDetails(anime_id);
     });
     
@@ -81,7 +107,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           animeDet.value = data.search[0];
-          isLoaded();
+          isLoaded()
         });
 
       let anime_name = document.getElementById("name").innerText;
@@ -100,6 +126,9 @@ export default {
 </script>
 
 <style scoped>
+*{
+  scrollbar-width: 0;
+}
 ::-webkit-scrollbar {
   display: none;
 }
@@ -110,6 +139,23 @@ img {
 }
 p {
   margin: 0;
+}
+.watchNow {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 25px;
+  color: #fff;
+  margin: 12px 0px;
+  display: block;
+  width: 140px;
+  transition: 0.2s ease-in;
+}
+.watchNow:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.playIcon {
+  height: 24px;
+  width: 24px;
 }
 .row {
   --bs-gutter-x: 0 !important;
@@ -140,56 +186,52 @@ p {
   width: 100%;
   list-style-type: none;
   margin: 0;
-  margin-top: 46px;
+  margin-top: 12px;
   padding: 0;
   overflow-x: scroll;
   display: flex;
 }
 .genres li {
   display: inline-block;
-  background: rgb(222, 224, 247, 0.5);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 4px 10px;
   margin-right: 6px;
-  font-weight: bold;
   font-size: 10px;
   text-transform: uppercase;
   white-space: nowrap;
-}
-.episodes_link {
+}episodes_link {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  justify-content: center;
+  height: 100%;
   text-align: center;
 }
 .episode_list {
-  display: flex !important;
-  padding: 0 0 !important;
-  justify-content: center;
-  width: 90%;
-  flex-wrap: wrap;
+  height: 320px;
+  flex-wrap: nowrap;
+  overflow-y: scroll;
   list-style: none;
+  padding: 0 6px;
 }
 .episode_list li {
-  /* float: left; */
   display: inline-block;
 }
-.episodes_link ul li a {
+.epItem {
+  width: 98px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px;
+  display: inline-block;
+  border-radius: 4px;
   text-decoration: none;
   color: white;
 }
-.epItem {
-  padding: 10px 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 135px;
-  height: 50px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.15);
-  margin: 5px;
-  /* display: inline-block; */
+.epItem:hover{
+  background: rgba(255, 255, 255, 0.2);
 }
 @media screen and (max-width: 786px) {
   .animeInfo {
